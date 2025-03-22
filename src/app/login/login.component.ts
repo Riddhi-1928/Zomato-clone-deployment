@@ -152,6 +152,7 @@ otpArray: any;
       this.authService.sendEmailOTP(email).subscribe(
         () => {
           this.isOtpSent = true;
+          console.log("OTP Sent. isOtpSent:", this.isOtpSent);
           this.maskedEmail = this.maskEmail(email);
           this.startCountdown();
           this.message = "OTP sent to email!";
