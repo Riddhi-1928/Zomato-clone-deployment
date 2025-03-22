@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { FormBuilder, Validators, FormControl, FormGroup, ReactiveFormsModule, FormArray, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { getAuth, RecaptchaVerifier, ConfirmationResult } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -127,7 +128,7 @@ export class LoginComponent {
   isModalOpen: boolean = true;
 otpArray: any;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService,private cd: ChangeDetectorRef) {
 
     this.loginForm = this.fb.group({
       countryCode: ['+91'],
@@ -155,6 +156,7 @@ otpArray: any;
           console.log("OTP Sent. isOtpSent:", this.isOtpSent);
           this.maskedEmail = this.maskEmail(email);
           this.startCountdown();
+          this.cd.detectChanges(); // Force UI update
           this.message = "OTP sent to email!";
         },
         () => this.message = "Failed to send OTP."
