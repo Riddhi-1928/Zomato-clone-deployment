@@ -40,10 +40,10 @@
     New to Zomato? <a routerLink="/sign-up">Create account</a>
   </p>
 </div>
-
+s
 <!-- Email Login Modal (Completely Separate) -->
   
-<div class="login-modal email-modal" *ngIf="isEmailLogin ">
+<!-- <div class="login-modal email-modal" *ngIf="isEmailLogin ">
   <button class="close-btn" (click)="closeEmailModal()">✖</button>
 
   
@@ -68,6 +68,43 @@
     Already have an account? <a href="/login">Login</a>
   </p>
 
-</div> 
+</div>  -->
+
+<!-- Email Login Modal with OTP Verification -->
+<div class="login-modal email-modal" *ngIf="isEmailLogin && !isOtpSent">
+  <button class="close-btn" (click)="closeEmailModal()">✖</button>
+  <h2>Login</h2>
+  <img src="/assets/images/mail.png" alt="Email" class="email-icon" />
+
+  <form [formGroup]="loginForm" (ngSubmit)="sendOTP()">
+    <input type="email" formControlName="email" placeholder="Email" />
+    <div class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+      <p *ngIf="loginForm.get('email')?.hasError('required')">Email is required</p>
+      <p *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid email</p>
+    </div>
+    <button class="otp-btn" type="submit" [disabled]="loginForm.invalid">
+      Send One Time Password
+    </button>
+  </form>
+</div>
+
+<!-- OTP Verification Modal -->
+<div class="login-modal otp-modal" *ngIf="isOtpSent">
+  <h2>OTP Verification</h2>
+  <p>One Time Password has been sent to your email, <b>{{ maskedEmail }}</b>. Please enter the OTP below.</p>
+  <p>Valid for {{ countdown }} minutes.</p>
+
+  <div class="otp-input">
+    <input type="text" maxlength="1" *ngFor="let otpBox of otpArray; let i = index" [(ngModel)]="otp[i]" (input)="moveToNext(i, $event)" />
+  </div>
+
+  <p *ngIf="countdown > 0">00:{{ countdown }}</p>
+  <button class="verify-btn" (click)="verifyOTP()">Verify OTP</button>
+  
+  <p class="resend">
+    Not received OTP? <button (click)="resendOTP()" [disabled]="countdown > 0">Resend Now</button>
+  </p>
+</div>
+
 
 
