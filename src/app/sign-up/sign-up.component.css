@@ -1,0 +1,114 @@
+h2 {
+    font-size: 24px; /* ✅ Bigger heading */
+    margin-bottom: 20px;
+    text-align: left; /* ✅ Aligns the text to the left */
+  }
+  
+  .sign-modal {
+    text-align: center;
+    padding: 20px;
+    width: 400px;
+
+     /* ✅ Centering the modal */
+     position: absolute;  
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     background: white;
+     border-radius: 10px;
+  
+  }
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-direction: column; /* ✅ Stack inputs vertically */
+    width: 100%;
+  }
+
+  input {
+    width: calc(100% - 20px); /* ✅ Maintain consistent width */
+    flex: 1;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .create-btn, .google-btn {
+    width: 100%;
+    padding: 10px;
+    margin-left: 5px ;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  .create-btn{ background: rgb(227, 84, 84); color: white; }
+  .google-btn { 
+    background: white;
+     border: 1px solid #ccc; 
+     display: flex; 
+     align-items: center; 
+     justify-content: center;
+     width: 35px;  /* ✅ Same as icon */
+    height: 35px; /* ✅ Same as icon */
+    border-radius: 5px;  /* ✅ Fully rounded */
+    padding: 0;  /* ✅ Remove extra padding */ 
+    margin: 10px auto; /* ✅ Centering the button */
+   
+    }
+    .google-btn img {
+      width: 30px;  /* ✅ Reduced Google icon size */
+      height: 30px;
+      
+    }
+    
+    .google-btn:hover {
+      background: #f5f5f5;
+    }
+    .create-btn:disabled {
+        background: lightgray;
+        cursor: not-allowed;
+      }
+
+  .separator {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #888;
+  }
+  .login a { color: red; text-decoration: none; }
+
+
+  /* ✅ Checkbox styles matching Zomato */
+.terms-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #444;
+    margin-top: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.terms-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.terms-container a {
+    color: rgb(227, 84, 84);
+    text-decoration: none;
+    
+}
+
+.terms-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: left;
+}

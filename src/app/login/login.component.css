@@ -1,0 +1,153 @@
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: left;
+
+}
+.login-modal {
+  text-align: center;
+  padding: 20px;
+  width: 400px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 10px;
+}
+
+/* ✅ Adds spacing between input and button */
+.email-modal form input {
+  margin-bottom: 15px; /* ✅ Adds space below the email input */
+}
+
+
+
+/* Email Login Styling */
+.email-icon {
+  width: 60px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+/* Input Fields */
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.country-code {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input {
+  flex: 1;
+  padding: 5px;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+.otp-btn,
+.email-btn,
+.google-btn,
+.toggle-btn {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.otp-btn {
+  background: rgb(227, 84, 84);
+  color: white;
+  margin-top: 10px;
+}
+
+.email-btn,
+.toggle-btn {
+  background: white;
+  border: 1px solid #ccc;
+}
+
+.google-btn {
+  background: white;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  padding: 0;
+  margin: 10px auto;
+}
+
+.google-btn img {
+  width: 30px;
+  height: 30px;
+}
+
+.google-btn:hover,
+.email-btn:hover,
+.toggle-btn:hover {
+  background: #f5f5f5;
+}
+
+.separator {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #888;
+}
+.signup{
+  text-align: left;
+}
+.signup a {
+  color: red;
+  text-decoration: none;
+}
+
+/* ✅ Cross button (X) styling */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: black !important; /* ✅ Force black */
+  text-decoration: none !important; /* ✅ Remove link styling */
+  font-weight: bold;
+}
+
+/* ✅ On hover, it turns red */
+.close-btn:hover {
+  color: red !important;
+}
+
+/* ✅ Ensure it's not treated as a link */
+.close-btn:visited,
+.close-btn:active,
+.close-btn:focus {
+  color: black !important;
+  text-decoration: none !important;
+}

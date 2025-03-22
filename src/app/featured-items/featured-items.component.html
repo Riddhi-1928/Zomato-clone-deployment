@@ -1,0 +1,8 @@
+
+<div class="item-card" *ngFor="let item of featuredItems">
+    <img [src]="item.image" alt="{{item.name}}" class="item-image">
+    <h3>{{ item.name }}</h3>
+    <p>{{ item.description }}</p>
+    <button>Order Now</button>
+  </div>
+  

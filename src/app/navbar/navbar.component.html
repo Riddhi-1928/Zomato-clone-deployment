@@ -1,0 +1,49 @@
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Get the App</a>
+
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav"> 
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="investor-relations" routerLinkActive="active">Investor Relations</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="add-restaurant" routerLinkActive="active">Add Restaurant</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="login" routerLinkActive="active">Log in</a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="sign-up" routerLinkActive="active">Sign up</a>
+      </li>
+    </ul>
+  </div>
+</nav> 
+
+  -->
+  
+  <nav class="navbar">
+    <!-- Left Side: Get the App -->
+    <a class="navbar-brand" href="#">Get the App</a>
+
+     <!-- Mobile Menu Toggle Button (Only visible on small screens) -->
+  <span class="menu-toggle" (click)="toggleMenu()">&#9776;</span>
+  
+    <!-- Right Side: Navigation Links -->
+    <ul class="nav-links" [class.show]="isMenuOpen">
+      <li><a routerLink="investor-relations">Investor Relations</a></li>
+      <li><a routerLink="add-restaurant" >Add Restaurant</a></li>
+      <!-- <li><a href="login" (click)="openLogin($event)" >Log in</a></li> -->
+      <li><a routerLink="login" >Log in</a></li>
+      <li><a routerLink="sign-up">Sign up</a></li>
+    </ul>
+    
+  </nav>
+  
+  

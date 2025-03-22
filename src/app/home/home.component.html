@@ -1,0 +1,46 @@
+
+<div class="home-container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h3>Zomato</h3>
+        <h2>Discover the best food & drinks in Pune</h2>
+      </div>
+  
+      <div class="search-container">
+         <!-- Location Selector with Icon -->
+        <div class="location-selector">
+          <input type="text" [(ngModel)]="location" placeholder="Enter location" (focus)="showLocationDropdown = true"
+            (blur)="showLocationDropdown = false" />
+          <span class="dropdown-arrow" (click)="toggleLocationDropdown()">▼</span>
+          <div *ngIf="showLocationDropdown" class="location-dropdown">
+            <ul>
+              <li *ngFor="let loc of locations" (click)="selectLocation(loc)">
+                {{ loc }} </li>
+            </ul>
+          </div>
+        </div>
+        
+    <!-- Search Bar -->
+  
+        <div class="search-bar">
+          <input type="text" [(ngModel)]="searchQuery" placeholder="Search for restaurant, cuisine or a dish" />
+          <span class="search-icon">🔍</span>
+        </div>
+      </div>
+    </section>
+    
+   </div>
+  
+  
+
+<app-options></app-options>
+<app-collection></app-collection>
+<app-footer></app-footer> 
+
+
+  
+
+
+
+  
