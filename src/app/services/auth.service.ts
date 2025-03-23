@@ -8,41 +8,37 @@ import { Auth,getAuth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationRes
   providedIn: 'root',
 })
 export class AuthService {
-  //private auth = getAuth();
+  private auth = getAuth();
   private recaptchaVerifier!: RecaptchaVerifier;
   private confirmationResult!: ConfirmationResult;
   private apiUrl = environment.apiUrl;
 
 
-  private auth: Auth = inject(Auth); //  Use `inject()` to avoid circular dependency
-  private http = inject(HttpClient); //  Inject HttpClient safely
-
-  constructor() {}
-
-  // constructor(private http: HttpClient) { 
-  //   this.auth = getAuth();
-  // }
+ 
+  constructor(private http: HttpClient) { 
+    this.auth = getAuth();
+  }
 
 
   //  Sign-up (Only Full Name & Email)
   signUp(fullName: string, email: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/signup`, { fullName, email });
   }
-  //  Setup reCAPTCHA for Firebase OTP (Phone)
-  setupReCaptcha(containerId: string) {
-    this.recaptchaVerifier = new RecaptchaVerifier(this.auth,containerId, { size: 'invisible' });
-  }
+  // //  Setup reCAPTCHA for Firebase OTP (Phone)
+  // setupReCaptcha(containerId: string) {
+  //   this.recaptchaVerifier = new RecaptchaVerifier(this.auth,containerId, { size: 'invisible' });
+  // }
 
-  //  Send OTP for Phone Login (Handled by Firebase)
-  async sendPhoneOTP(phoneNumber: string): Promise<ConfirmationResult> {
-    this.setupReCaptcha('recaptcha-container');
-    return await signInWithPhoneNumber(this.auth, phoneNumber, this.recaptchaVerifier);
-  }
+  // //  Send OTP for Phone Login (Handled by Firebase)
+  // async sendPhoneOTP(phoneNumber: string): Promise<ConfirmationResult> {
+  //   this.setupReCaptcha('recaptcha-container');
+  //   return await signInWithPhoneNumber(this.auth, phoneNumber, this.recaptchaVerifier);
+  // }
 
-  //  Verify OTP for Phone Login (Firebase)
-   verifyPhoneOTP(idToken: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/verify-phone-otp`, { idToken });
-  }
+  // //  Verify OTP for Phone Login (Firebase)
+  //  verifyPhoneOTP(idToken: string): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/verify-phone-otp`, { idToken });
+  // }
 
   //  Send OTP for Email Login
   sendEmailOTP(email: string): Observable<any> {
@@ -54,8 +50,5 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/verify-email-otp`, { email, otp });
   }
 
-  getUserRole() {
-    return this.http.get<{ role: string }>(`${this.apiUrl}/user-role`);
-  }
   
 }
