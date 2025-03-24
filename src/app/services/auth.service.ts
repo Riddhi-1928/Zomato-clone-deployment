@@ -2,21 +2,21 @@ import { Injectable ,inject} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { Auth,getAuth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult } from '@angular/fire/auth';
+//import { Auth,getAuth, RecaptchaVerifier, signInWithPhoneNumber, ConfirmationResult } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private auth = getAuth();
-  private recaptchaVerifier!: RecaptchaVerifier;
-  private confirmationResult!: ConfirmationResult;
+ // private auth = getAuth();
+  // private recaptchaVerifier!: RecaptchaVerifier;
+  // private confirmationResult!: ConfirmationResult;
   private apiUrl = environment.apiUrl;
 
 
  
   constructor(private http: HttpClient) { 
-    this.auth = getAuth();
+    //this.auth = getAuth();
   }
 
 
@@ -42,7 +42,7 @@ export class AuthService {
 
   //  Send OTP for Email Login
   sendEmailOTP(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/send-email-otp`, { email });
+    return this.http.post(`${this.apiUrl}/send-email-otp`, {"email":email });
   }
 
   //  Verify Email OTP & Login

@@ -19,5 +19,5 @@ export const routes: Routes = [
     {path:'sign-up',component:SignUpComponent , title:'Sign-up Page'},
     { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
     { path: 'user-dashboard', component: UserDashboardComponent, canActivate: [AuthGuard] },
-    { path: '**', redirectTo: '' } // Redirect unknown routes to login
+    // { path: '**', redirectTo: '' } // Redirect unknown routes to login
 ];

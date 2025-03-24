@@ -76,16 +76,23 @@
   <h2>Login</h2>
   <img src="/assets/images/mail.png" alt="Email" class="email-icon" />
 
-  <form [formGroup]="loginForm" (ngSubmit)="sendOTP()">
-    <input type="email" formControlName="email" placeholder="Email" />
-    <div class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-      <p *ngIf="loginForm.get('email')?.hasError('required')">Email is required</p>
-      <p *ngIf="loginForm.get('email')?.hasError('email')">Enter a valid email</p>
+  <form [formGroup]="otpForm" (ngSubmit)="sendOTP()">
+    <input type="email"   [(ngModel)]="emailOtp" formControlName="email" placeholder="Email" />
+    <div class="error" *ngIf="otpForm.get('email')?.invalid && otpForm.get('email')?.touched">
+      <p *ngIf="otpForm.get('email')?.hasError('required')">Email is required</p>
+      <p *ngIf="otpForm.get('email')?.hasError('email')">Enter a valid email</p>
     </div>
-    <button class="otp-btn" type="submit" [disabled]="loginForm.invalid">
+    <button class="otp-btn" type="submit" [disabled]="otpForm.invalid">
       Send One Time Password
     </button>
   </form>
+
+  <p class="signup">
+    Already have an account? <a href="/login">Login</a>
+  </p>
+
+  <!-- <input type="email" [(ngModel)]="emailOtp">
+  <button type="submit" (click)="sendOTP()">Send</button> -->
 </div>
 
 <!-- OTP Verification Modal -->
@@ -94,16 +101,30 @@
   <p>One Time Password has been sent to your email, <b>{{ maskedEmail }}</b>. Please enter the OTP below.</p>
   <p>Valid for {{ countdown }} minutes.</p>
 
-  <div class="otp-input">
-    <input type="text" maxlength="1" *ngFor="let otpBox of otpArray; let i = index" [(ngModel)]="otp[i]" (input)="moveToNext(i, $event)" />
-  </div>
+  <form [formGroup]="verifyOtpForm" (ngSubmit)="verifyOTP()">
+    <!-- <input type="text" maxlength="1" *ngFor="let otpBox of otpArray;
+     let i = index" [(ngModel)]="otp[i]" (input)="moveToNext(i, $event)"
+      type="text" maxlength="1" *ngFor="let otpBox of otpArray; let i = index"  
+      [(ngModel)]="otp[i]" (input)="moveToNext(i, $event)" />-->
 
-  <p *ngIf="countdown > 0">00:{{ countdown }}</p>
-  <button class="verify-btn" (click)="verifyOTP()">Verify OTP</button>
+
+      <input type="text"   formControlName="otp" placeholder="otp" />
+    
+    <button class="otp-btn" type="submit" [disabled]="otpForm.invalid">
+      Verify OTP
+    </button>
+    <p *ngIf="countdown > 0">00:{{ countdown }}</p>
   
+  </form>
   <p class="resend">
     Not received OTP? <button (click)="resendOTP()" [disabled]="countdown > 0">Resend Now</button>
   </p>
+
+  <!-- <div class="otp-input">
+    <input type="text" maxlength="1" *ngFor="let otpBox of otpArray; let i = index" [(ngModel)]="otp[i]" (input)="moveToNext(i, $event)" />
+  </div> -->
+
+  
 </div>
 
 

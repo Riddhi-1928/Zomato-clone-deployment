@@ -4,9 +4,9 @@ import { FormBuilder, Validators, FormControl, FormGroup, ReactiveFormsModule, F
 import { Router, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AuthService } from '../services/auth.service';
-import { getAuth, RecaptchaVerifier, ConfirmationResult } from '@angular/fire/auth';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+//import { getAuth, RecaptchaVerifier, ConfirmationResult } from '@angular/fire/auth';
+// import { AngularFireAuth } from '@angular/fire/compat/auth';
+// import firebase from 'firebase/compat/app';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -111,19 +111,20 @@ export class LoginComponent {
   // }
 
 
-
-
+  emailOtp:string='';
   loginForm: FormGroup;
   isEmailLogin = false; // Toggle between Phone & Email login
   isOtpSent = false; // Track OTP screen visibility
+  otpForm:FormGroup;
+  verifyOtpForm:FormGroup;
   maskedEmail = ''; // Masked email for display
   otp: string[] = new Array(6).fill('');
   countdown = 60; // Timer for OTP expiration
   private interval: any;
   message: string = '';
-  private auth = getAuth();
-  private recaptchaVerifier!: RecaptchaVerifier;
-  private confirmationResult!: ConfirmationResult;
+  // private auth = getAuth();
+  // private recaptchaVerifier!: RecaptchaVerifier;
+  // private confirmationResult!: ConfirmationResult;
   loginWithGoogle: any;
   isModalOpen: boolean = true;
 otpArray: any;
@@ -136,7 +137,17 @@ otpArray: any;
       email: ['', [Validators.email, Validators.required]],
       otp: ['', [Validators.required, Validators.pattern('^[0-9]{6}$')]],
     });
-  }
+  
+
+  this.otpForm = this.fb.group({
+    
+    email: ['', [Validators.email, Validators.required]],
+    
+  });
+  this.verifyOtpForm =this.fb.group({
+    otp: ['',]
+  })
+}
 
   // Toggle Login Method (Phone <-> Email)
   toggleLoginMethod() {
@@ -147,7 +158,10 @@ otpArray: any;
 
   // Send OTP for Email Login
   async sendOTP() {
-    const { email } = this.loginForm.value;
+    const {email}= this.otpForm.value;
+    this.emailOtp=email;
+    // const email  = this.emailOtp;
+    // console.log(email);
 
     if (this.isEmailLogin) {
       this.authService.sendEmailOTP(email).subscribe(
@@ -162,7 +176,18 @@ otpArray: any;
         () => this.message = "Failed to send OTP."
       );
     }
-  }
+  //   this.authService.sendEmailOTP(email).subscribe(
+  //     () => {
+  //       this.isOtpSent = true;
+  //       console.log("OTP Sent. isOtpSent:", this.isOtpSent);
+  //       this.maskedEmail = this.maskEmail(email);
+  //       this.startCountdown();
+  //       this.cd.detectChanges(); // Force UI update
+  //       this.message = "OTP sent to email!";
+  //     },
+  //     () => this.message = "Failed to send OTP."
+  //   );
+   }
 
   // Mask Email for Display
   private maskEmail(email: string): string {
@@ -185,8 +210,8 @@ otpArray: any;
 
   // Verify OTP
   async verifyOTP() {
-    const { email, otp } = this.loginForm.value;
-    this.authService.verifyEmailOTP(email, otp).subscribe(
+    const {  otp } = this.verifyOtpForm.value;
+    this.authService.verifyEmailOTP(this.emailOtp, otp).subscribe(
       response => this.handleLoginSuccess(response),
       () => this.message = "Invalid OTP."
     );
