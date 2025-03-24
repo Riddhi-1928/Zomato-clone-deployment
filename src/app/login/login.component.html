@@ -77,7 +77,7 @@
   <img src="/assets/images/mail.png" alt="Email" class="email-icon" />
 
   <form [formGroup]="otpForm" (ngSubmit)="sendOTP()">
-    <input type="email"   [(ngModel)]="emailOtp" formControlName="email" placeholder="Email" />
+    <input type="email"   formControlName="email" placeholder="Email" />
     <div class="error" *ngIf="otpForm.get('email')?.invalid && otpForm.get('email')?.touched">
       <p *ngIf="otpForm.get('email')?.hasError('required')">Email is required</p>
       <p *ngIf="otpForm.get('email')?.hasError('email')">Enter a valid email</p>
