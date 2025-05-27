@@ -1,0 +1,11 @@
+nav a {
+    color: white; /* Set font color to white */
+    text-decoration: none; /* Remove underline */
+    font-weight: 500; /* Optional: Adjust font weight */
+     
+  }
+  
+  nav a:hover {
+    text-decoration: underline; /* Add underline on hover if needed */
+  }
+  

@@ -5,29 +5,37 @@
 <div class="login-modal" *ngIf="!isEmailLogin ">
   <h2>Login</h2>
 
-  <form [formGroup]="loginForm" (ngSubmit)="sendOTP()">
+  <form [formGroup]=" PhnotpForm" (ngSubmit)="sendphnOTP()">
     <div class="input-group">
       <select class="country-code" formControlName="countryCode">
         <option value="+91">🇮🇳 +91</option>
-        <option value="+1">🇺🇸 +1</option>
-        <option value="+44">🇬🇧 +44</option>
       </select>
       <input type="text" formControlName="phoneNumber" placeholder="Phone" maxlength="10" />
     </div>
 
-    <div class="error" *ngIf="loginForm.get('phoneNumber')?.invalid && loginForm.get('phoneNumber')?.touched">
-      <p *ngIf="loginForm.get('phoneNumber')?.hasError('required')">Phone number is required</p>
-      <p *ngIf="loginForm.get('phoneNumber')?.hasError('pattern')">Only numbers allowed</p>
-      <p *ngIf="loginForm.get('phoneNumber')?.hasError('minlength')">Must be 10 digits</p>
+    <div class="error" *ngIf="PhnotpForm.get('phoneNumber')?.invalid && PhnotpForm.get('phoneNumber')?.touched">
+      <p *ngIf="PhnotpForm.get('phoneNumber')?.hasError('required')">Phone number is required</p>
+      <p *ngIf="PhnotpForm.get('phoneNumber')?.hasError('pattern')">Only numbers allowed</p>
+      <p *ngIf="PhnotpForm.get('phoneNumber')?.hasError('minlength')">Must be 10 digits</p>
     </div>
+    
 
-    <button class="otp-btn" type="submit" [disabled]="loginForm.invalid">
+     <div id="recaptcha-container"></div>    <!-- Firebase reCAPTCHA -->
+    <button class="otp-btn" type="submit"  [disabled]="PhnotpForm.invalid">
       Send One Time Password
     </button>
   </form>
 
-  <div class="separator">or</div>
+   <!-- OTP verification container
+   <div class="otp-container" *ngIf="isOTPSent">
+    <h3>Enter OTP</h3>
+    <input type="text" [(ngModel)]="phnotp" placeholder="Enter OTP" maxlength="6" />
+    <button (click)="verifyphnOTP()">Verify OTP</button>
+  </div>  -->
 
+
+  <div class="separator">or</div>
+  
   <button class="toggle-btn" (click)="toggleLoginMethod()">
     Continue with Email
   </button>
@@ -40,6 +48,30 @@
     New to Zomato? <a routerLink="/sign-up">Create account</a>
   </p>
 </div>
+
+<!-- Phone OTP Verification Modal -->
+<div class="login-modal Phnotp-modal" *ngIf="isOtpSent">
+  <h2>OTP Verification</h2>
+  <p>One Time Password has been sent to your phone number, <b>{{ maskedEmail }}</b>. Please enter the OTP below.</p>
+  <p>Valid for {{ countdown }} minutes.</p>
+
+  <form [formGroup]="PhnVerifyOtpForm" (ngSubmit)="sendphnOTP()">
+   
+
+      <input type="text"   formControlName="Phnotp" placeholder="otp" />
+    
+    <button class="otp-btn" type="submit" [disabled]="PhnVerifyOtpForm.invalid">
+      Verify OTP
+    </button>
+    <p *ngIf="countdown > 0">00:{{ countdown }}</p>
+  
+  </form>
+  <p class="resend">
+    Not received OTP? <button (click)="resendPOTP()" [disabled]="countdown > 0">Resend Now</button>
+  </p>
+</div>
+
+
 
 <!-- Email Login Modal (Completely Separate) -->
   
@@ -76,13 +108,13 @@
   <h2>Login</h2>
   <img src="/assets/images/mail.png" alt="Email" class="email-icon" />
 
-  <form [formGroup]="otpForm" (ngSubmit)="sendOTP()">
+  <form [formGroup]="EotpForm" (ngSubmit)="sendEOTP()">
     <input type="email"   formControlName="email" placeholder="Email" />
-    <div class="error" *ngIf="otpForm.get('email')?.invalid && otpForm.get('email')?.touched">
-      <p *ngIf="otpForm.get('email')?.hasError('required')">Email is required</p>
-      <p *ngIf="otpForm.get('email')?.hasError('email')">Enter a valid email</p>
+    <div class="error" *ngIf="EotpForm.get('email')?.invalid && EotpForm.get('email')?.touched">
+      <p *ngIf="EotpForm.get('email')?.hasError('required')">Email is required</p>
+      <p *ngIf="EotpForm.get('email')?.hasError('email')">Enter a valid email</p>
     </div>
-    <button class="otp-btn" type="submit" [disabled]="otpForm.invalid">
+    <button class="otp-btn" type="submit" [disabled]="EotpForm.invalid">
       Send One Time Password
     </button>
   </form>
@@ -95,13 +127,13 @@
   <button type="submit" (click)="sendOTP()">Send</button> -->
 </div>
 
-<!-- OTP Verification Modal -->
+<!-- Email OTP Verification Modal -->
 <div class="login-modal otp-modal" *ngIf="isOtpSent">
   <h2>OTP Verification</h2>
-  <p>One Time Password has been sent to your email, <b>{{ maskedEmail }}</b>. Please enter the OTP below.</p>
+  <p>One Time Password has been sent to your email, <b>{{  maskedPhn }}</b>. Please enter the OTP below.</p>
   <p>Valid for {{ countdown }} minutes.</p>
 
-  <form [formGroup]="verifyOtpForm" (ngSubmit)="verifyOTP()">
+  <form [formGroup]="EverifyOtpForm" (ngSubmit)="verifyEOTP()">
     <!-- <input type="text" maxlength="1" *ngFor="let otpBox of otpArray;
      let i = index" [(ngModel)]="otp[i]" (input)="moveToNext(i, $event)"
       type="text" maxlength="1" *ngFor="let otpBox of otpArray; let i = index"  
@@ -110,14 +142,14 @@
 
       <input type="text"   formControlName="otp" placeholder="otp" />
     
-    <button class="otp-btn" type="submit" [disabled]="otpForm.invalid">
+    <button class="otp-btn" type="submit" [disabled]="EverifyOtpForm.invalid">
       Verify OTP
     </button>
     <p *ngIf="countdown > 0">00:{{ countdown }}</p>
   
   </form>
   <p class="resend">
-    Not received OTP? <button (click)="resendOTP()" [disabled]="countdown > 0">Resend Now</button>
+    Not received OTP? <button (click)="resendEOTP()" [disabled]="countdown > 0">Resend Now</button>
   </p>
 
   <!-- <div class="otp-input">

@@ -1,0 +1,22 @@
+
+
+
+   .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+  }
+  .dropdown {
+    position: absolute;
+    right: 0;
+    margin-top: 0.5rem;
+    background:red;
+    border-radius: 0.375rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Optional - global style override */
+.chart-container {
+  min-height: 250px;
+  max-height: 400px;
+}

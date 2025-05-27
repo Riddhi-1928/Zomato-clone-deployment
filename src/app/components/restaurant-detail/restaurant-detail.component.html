@@ -1,0 +1,104 @@
+
+
+
+
+<!-- User Dashboard Navbar UI (SAME AS USER DASHBOARD) -->
+<div class="user-dashboard-wrapper">
+    <div class="user-navbar">
+      <div class="logo">zomato</div>
+
+      <!-- <div class="fixed top-4 right-6 z-50"> -->
+        <div class="flex items-center space-x-6">
+          <!-- Cart Icon with Count -->
+          <div class="relative cursor-pointer" (click)="goToCart()">
+            <img src="assets/brands/icon.png" class="w-6 h-6" alt="Cart" />
+            <span *ngIf="getCartLength()" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1.5 rounded-full">
+              {{ getCartLength() }}</span>
+             
+          </div>
+
+
+        <div class="relative inline-block text-left">
+          <div class="flex items-center space-x-2 cursor-pointer" (click)="toggleDropdown()" #dropdownRef>
+            <img src="assets/images/avatar.jpeg" alt="User Avatar" class="w-10 h-10 rounded-full object-cover" />
+            <span class="font-medium">{{ userName }}</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <div *ngIf="dropdownOpen" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-50">
+            <button (click)="logout()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">Log out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+<div class="user-main-content mt-10 px-4">
+  <div *ngIf="restaurant" class="max-w-sm mx-auto bg-white rounded-lg shadow-md p-3">
+    <img [src]="restaurant.image" class="w-full h-70 object-cover rounded-lg mb-4" />
+    
+    <h2 class="text-xl font-bold mb-2 text-center">{{ restaurant.name }}</h2>
+    
+    <div class="text-gray-700 space-y-1 text-sm">
+      <p><strong>Cuisine:</strong> {{ restaurant.cuisine }}</p>
+      <p><strong>Location:</strong> {{ restaurant.location }}</p>
+      <p><strong>Timing:</strong> {{ restaurant.opening_time }} - {{ restaurant.closing_time }}</p>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Menu Section -->
+<div class="max-w-4xl mx-auto mt-10 px-4">
+  <h3 class="text-xl font-semibold mb-4">Menu</h3>
+
+  <div *ngIf="items.length === 0" class="text-gray-500">No items available.</div>
+
+  <div *ngFor="let item of items" class="flex items-start bg-white rounded-lg shadow mb-4 p-4">
+    <!-- Image -->
+    <img [src]="item.image" alt="{{ item.name }}" class="w-24 h-24 rounded object-cover mr-4" />
+
+    <!-- Item Info -->
+    <div class="flex-1">
+      <div class="flex justify-between items-start">
+        <div>
+          <h4 class="text-md font-semibold">{{ item.name }}</h4>
+          <p class="text-sm text-gray-500">{{ item.category }}</p>
+        </div>
+        <span class="text-green-600 font-bold">₹{{ item.price }}</span>
+      </div>
+      <p class="text-sm mt-1 text-gray-600">{{ item.description }}</p>
+
+      <div class="text-xs mt-1 text-gray-500">
+        Availability: 
+        <span [class.text-green-600]="item.availability" [class.text-red-500]="!item.availability">
+          {{ item.availability ? 'In Stock' : 'Out of Stock' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Add Button & Quantity -->
+    <div class="ml-4 flex flex-col items-center">
+      
+      <div class="ml-4 flex flex-col items-center">
+        <div class="flex items-center mb-2">
+          <button class="px-2 bg-gray-200 text-sm" (click)="decreaseQty(item)">-</button>
+          <span class="px-3">{{ getQty(item) }}</span>
+          <button class="px-2 bg-gray-200 text-sm" (click)="increaseQty(item)">+</button>
+
+          <!-- <button class="px-2 bg-gray-200 text-sm" (click)="cartService.decreaseItem(item)">-</button>
+          <span class="px-3">{{ cartService.getItemQuantity(item._id) }}</span>
+          <button class="px-2 bg-gray-200 text-sm" (click)="cartService.increaseItem(item)">+</button>
+        -->
+        </div>
+      
+      <button
+        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 text-sm rounded"
+        [disabled]="!item.availability"
+        (click)="addToCart(item)">
+        Add
+      </button>
+    </div>
+  </div>
+</div>

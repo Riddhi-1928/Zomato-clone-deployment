@@ -1,7 +1,117 @@
-
-<div class="dashboard">
+<!-- <div class="dashboard">
     <h1>Welcome, {{ userName }}!</h1>
     <p>This is the User Dashboard.</p>
     <button (click)="logout()">Logout</button>
   </div>
+   -->
+
+
+<!-- User Dashboard Navbar UI -->
+<div class="user-dashboard-wrapper">
+  <div class="user-navbar">
+    <div class="logo">zomato</div>
+
+    <div class="fixed top-4 right-6 z-50">
+      <div class="relative inline-block text-left">
+        <div class="flex items-center space-x-2 cursor-pointer" (click)="toggleDropdown()" #dropdownRef>
+          <img src="assets/images/avatar.jpeg" alt="Admin Avatar" class="w-10 h-10 rounded-full object-cover" />
+          <span class="font-medium">{{ userName }}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+
+        <!-- Dropdown -->
+        <div *ngIf="dropdownOpen" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-50">
+          <button (click)="logout()" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+            Log out
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Main Content Area (Example) -->
+  <div class="user-main-content">
+    <h2>Inspiration for your first order</h2>
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" (click)="scrollLeft()">&#8592;</button>
+      <div class="food-carousel" #carousel>
+        <div class="food-item" *ngFor="let item of foodList">
+          <img [src]="item.image" alt="{{item.name}}" />
+          <p>{{ item.name }}</p>
+        </div>
+      </div>
+      <button class="carousel-btn right" (click)="scrollRight()">&#8594;</button>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- Top Brands Section -->
+  <div class="user-main-content mt-8">
+    <h2 class="text-xl font-semibold mb-4">Top brands for you</h2>
+
+    <div class="carousel-wrapper">
+      <button class="carousel-btn left" (click)="scrollBrandsLeft()">&#8592;</button>
+
+      <div class="food-carousel" #brandsCarousel>
+        <div class="food-item text-center" *ngFor="let brand of brandsList">
+          <img [src]="brand.image" alt="{{ brand.name }}" />
+          <p class="font-medium">{{ brand.name }}</p>
+          <p class="text-xs text-gray-500">{{ brand.time }}</p>
+        </div>
+      </div>
+
+      <button class="carousel-btn right" (click)="scrollBrandsRight()">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- Fetching Restaurants-->
+  <div class="user-main-content mt-8">
+    <h2 class="text-xl font-semibold mb-4">Pune Restaurants</h2>
   
+    <div class="flex justify-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full px-4">
+        <div
+          class="restaurant-card bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300"
+          *ngFor="let restaurant of restaurants"
+
+           [routerLink]="['/restaurant-detail', restaurant._id]" 
+          >
+          <!-- Center image -->
+          <img [src]="restaurant.image" alt="{{ restaurant.name }}" class="w-full h-48 object-cover" />
+
+          <div class="p-4">
+            <div class="flex justify-between items-start">
+              <!-- Left side: name + cuisine -->
+              <div>
+                <h3 class="text-lg font-semibold">{{ restaurant.name }}</h3>
+                <p class="text-sm text-gray-500">{{ restaurant.cuisine }}</p>
+              </div>
+
+              <!-- Right side: price + location -->
+              <div class="text-right">
+                <span class="block text-green-600 font-semibold">₹{{ restaurant.avg_price }}</span>
+                <span class="block text-sm text-gray-600">{{ restaurant.location }}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Footer at the bottom -->
+  <app-footer></app-footer>
+
+
+</div>

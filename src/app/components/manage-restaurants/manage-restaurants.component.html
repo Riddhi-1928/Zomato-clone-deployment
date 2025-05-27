@@ -1,0 +1,83 @@
+<div class="max-w-lg mx-auto bg-white p-6 shadow-lg rounded-lg mt-30 relative">
+
+  <!-- Close Button (X Icon) -->
+  <button (click)="closeForm()" class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl">
+    ✖
+  </button>
+
+
+  <h2 class="text-2xl font-bold mb-4">Add New Restaurant</h2>
+  <form (ngSubmit)="addRestaurant()">
+    <input type="text" [(ngModel)]="restaurant.name" name="name" placeholder="Restaurant Name"
+      class="w-full p-2 border rounded mb-2">
+
+    <input type="text" [(ngModel)]="restaurant.location" name="location" placeholder="Location"
+      class="w-full p-2 border rounded mb-2">
+
+    <input type="text" [(ngModel)]="restaurant.cuisine" name="cuisine" placeholder="Cuisine Type"
+      class="w-full p-2 border rounded mb-2">
+
+    <input type="number" [(ngModel)]="restaurant.avg_price" name="avg_price" placeholder="Average Price"
+      class="w-full p-2 border rounded mb-2">
+
+    <input type="text" [(ngModel)]="restaurant.image" name="image" placeholder="Image URL"
+      class="w-full p-2 border rounded mb-2">
+
+    <input type="time" [(ngModel)]="restaurant.opening_time" name="opening_time" class="w-full p-2 border rounded mb-2">
+
+    <input type="time" [(ngModel)]="restaurant.closing_time" name="closing_time" class="w-full p-2 border rounded mb-2">
+
+    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Add Restaurant</button>
+  </form>
+</div>
+
+
+
+<!-- Display List of Restaurants -->
+<div class="mt-10">
+  <h2 class="text-xl font-bold">Restaurant List</h2>
+  <ul>
+    <li *ngFor="let restaurant of restaurants" class="flex justify-between p-4 border-b">
+      <span>{{ restaurant.name }} - {{ restaurant.location }}</span>
+
+      <div class="inline-flex gap-4">
+        <button (click)="editRestaurant(restaurant)" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit</button>
+        <button (click)="deleteRestaurant(restaurant._id)" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+<!-- Update Restaurant Form-->
+<div *ngIf="selectedRestaurant" class="max-w-lg mx-auto bg-white p-6 shadow-lg rounded-lg mt-10">
+  <h2 class="text-2xl font-bold mb-4">Edit Restaurant</h2>
+  <form (ngSubmit)="updateRestaurant()">
+    <input type="text" [(ngModel)]="selectedRestaurant.name" name="name" placeholder="Restaurant Name"
+      class="w-full p-2 border rounded mb-2">
+    <input type="text" [(ngModel)]="selectedRestaurant.location" name="location" placeholder="Location"
+      class="w-full p-2 border rounded mb-2">
+    <input type="text" [(ngModel)]="selectedRestaurant.cuisine" name="cuisine" placeholder="Cuisine Type"
+      class="w-full p-2 border rounded mb-2">
+    <input type="number" [(ngModel)]="selectedRestaurant.avg_price" name="avg_price" placeholder="Average Price"
+      class="w-full p-2 border rounded mb-2">
+    <input type="text" [(ngModel)]="selectedRestaurant.image" name="image" placeholder="Image URL"
+      class="w-full p-2 border rounded mb-2">
+    <input type="time" [(ngModel)]="selectedRestaurant.opening_time" name="opening_time"
+      class="w-full p-2 border rounded mb-2">
+    <input type="time" [(ngModel)]="selectedRestaurant.closing_time" name="closing_time"
+      class="w-full p-2 border rounded mb-2">
+
+    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Update Restaurant</button>
+    <button type="button" (click)="cancelEdit()" class="bg-gray-500 text-white px-4 py-2 rounded ml-2">Cancel</button>
+  </form>
+</div>
+
+
+    <!-- Manage Items Link -->
+    <li *ngFor="let restaurant of restaurants">
+      <a *ngIf="restaurant._id" [routerLink]="['/admin-dashboard/item-management', restaurant._id]" class="block py-2 px-4 hover:bg-gray-700">
+      Manage Items for {{ restaurant.name }}
+    </a>
+  </li>
+

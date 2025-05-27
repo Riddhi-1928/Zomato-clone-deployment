@@ -1,0 +1,58 @@
+
+<div class="max-w-4xl mx-auto bg-white p-6 shadow-lg rounded-lg mt-10">
+    <h2 class="text-2xl font-bold mb-4 text-center">🍽️ Manage Menu Items</h2>
+  
+    <!-- Add New Item Form -->
+    <form (ngSubmit)="addItem()" class="mb-6 p-4 border rounded">
+      <h3 class="text-lg font-bold mb-3">➕ Add New Item</h3>
+      
+      <input type="text" [(ngModel)]="selectedItem.name" name="name" placeholder="Item Name" class="w-full p-2 border rounded mb-2">
+      
+      <input type="number" [(ngModel)]="selectedItem.price" name="price" placeholder="Price" class="w-full p-2 border rounded mb-2">
+      
+      <input type="text" [(ngModel)]="selectedItem.category" name="category" placeholder="Category (e.g. Drinks, Main Course)" class="w-full p-2 border rounded mb-2">
+      
+      <input type="text" [(ngModel)]="selectedItem.image" name="image" placeholder="Image URL" class="w-full p-2 border rounded mb-2">
+      
+      <textarea [(ngModel)]="selectedItem.description" name="description" placeholder="Description" class="w-full p-2 border rounded mb-2"></textarea>
+  
+      <label class="flex items-center">
+        <input type="checkbox" [(ngModel)]="selectedItem.availability" name="availability" class="mr-2"> Available
+      </label>
+  
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-3">Add Item</button>
+    </form>
+  
+
+    <!-- Debugging: Show Total Items -->
+<p *ngIf="items.length > 0" class="text-green-500 font-bold">
+  📌 Total Items: {{ items.length }}
+</p>
+<p *ngIf="items.length === 0" class="text-red-500">No items available!</p>
+
+
+
+    <!-- List of Items -->
+    <h3 class="text-lg font-bold mb-3">📜 Item List</h3>
+    <ul *ngIf="items.length > 0; else noItems">
+      <li *ngFor="let item of items" class="flex justify-between p-4 border-b items-center">
+        <div>
+          <img [src]="item.image" alt="{{ item.name }}" class="w-16 h-16 object-cover rounded">
+          <span class="font-bold">{{ item.name }}</span> - ₹{{ item.price }}  
+          <span class="text-sm text-gray-500">({{ item.category }})</span>
+        </div>
+        
+        <div class="flex space-x-4">
+          <button (click)="editItem(item)" class="bg-yellow-500 text-white px-3 py-1 rounded">Edit</button>
+          <button (click)="deleteItem(item._id)" class="bg-red-500 text-white px-3 py-1 rounded">Delete</button>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Handle Empty State -->
+<ng-template #noItems>
+  <p class="text-gray-500">No items found for this restaurant.</p>
+</ng-template>
+
+  </div>
+  
