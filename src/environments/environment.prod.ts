@@ -10,6 +10,7 @@ export const environment = {
       messagingSenderId: "18085001221",
       appId: "1:18085001221:web:c56599ea5a9875ba21846c",
       measurementId: "G-VHH6T0HWVR"
-    }
+    },
+     razorpayKey: 'rzp_test_gjcz8T7oGq2hQh'
   };
   
