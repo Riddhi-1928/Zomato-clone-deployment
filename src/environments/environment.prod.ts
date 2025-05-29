@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     // apiUrl: 'https://zomato-clone-backend-zeta.vercel.app/api',  // Use your deployed backend URL
-    apiUrl: 'https://zomato-clone-backend-xth9.onrender.com',     //render
+    apiUrl: 'https://zomato-clone-backend-xth9.onrender.com/api',     //render
 
     firebaseConfig : {
       apiKey: "AIzaSyAxPhVSi-mA6czHnNRLeZXvzd79pRRkFVM",
